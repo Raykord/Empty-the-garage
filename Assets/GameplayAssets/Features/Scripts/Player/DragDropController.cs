@@ -33,20 +33,20 @@ namespace EmptyTheGarage.Player.ItemsDraging
             ray = Camera.main.ViewportPointToRay(offset);
             Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
 
+            if (draggableObject != null)
+            {
+                draggableObject.OffHighlight();
+            }
            
 
-            if (Physics.Raycast(ray, out hit, rayLength))
+            if (!isDraging && Physics.Raycast(ray, out hit, rayLength))
             {
-                if (hit.collider.TryGetComponent(out draggableObject) && !isDraging)
+                if (hit.collider.TryGetComponent(out draggableObject))
                 {
                     draggableObject.OnHighlight();
                 }
             }
-            else
-            {
-                draggableObject.OffHighlight();
-                draggableObject = null;
-            }
+            
         }
 
         protected virtual void OnDisable()
@@ -59,7 +59,7 @@ namespace EmptyTheGarage.Player.ItemsDraging
         {
             if (context.performed)
             { 
-                if (draggableObject != null && !isDraging)
+                if (draggableObject != null)
                 {
                     draggableObject.Drag(Camera.main.transform, hit.distance);
                     isDraging = true;
@@ -67,7 +67,7 @@ namespace EmptyTheGarage.Player.ItemsDraging
             }
             else if (context.canceled)
             {
-                if (draggableObject != null && isDraging)
+                if (draggableObject != null)
                 {
                     draggableObject.Drop();
                     isDraging = false;
