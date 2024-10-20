@@ -7,6 +7,9 @@ namespace EmptyTheGarage.Player.ItemsDraging
     [RequireComponent(typeof(Rigidbody), typeof(Outline))]
     public class DragableObject : MonoBehaviour, IDragable
     {
+        protected const string DRAGABLE_LAYER = "DragableObject";
+        protected const string DEFAULT = "DragableObject";
+
         protected bool isDraged = false;
         protected Coroutine dragCoroutine = default;
         protected Rigidbody body = default;
@@ -30,6 +33,7 @@ namespace EmptyTheGarage.Player.ItemsDraging
             body.isKinematic = true;
             this.holdDistance = holdDistance;
             playerCamera = camera;
+            gameObject.layer = LayerMask.NameToLayer(DRAGABLE_LAYER);
             dragCoroutine = StartCoroutine(StartDraging());
         }
 
@@ -39,6 +43,7 @@ namespace EmptyTheGarage.Player.ItemsDraging
             dragCoroutine = null;
             isDraged= false;
             body.isKinematic = false;
+            gameObject.layer = LayerMask.NameToLayer(DEFAULT);
         }
 
         protected virtual IEnumerator StartDraging()
