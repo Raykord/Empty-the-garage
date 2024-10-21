@@ -1,14 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace EmptyTheGarage.Player.ItemsDraging
+namespace EmptyTheGarage.Feature.ItemsDraging
 {
     [RequireComponent(typeof(Rigidbody), typeof(Outline))]
     public class DragableObject : MonoBehaviour, IDragable
     {
         protected const string DRAGABLE_LAYER = "DragableObject";
-        protected const string DEFAULT = "DragableObject";
+        protected const string DEFAULT = "Default";
 
         protected bool isDraged = false;
         protected Coroutine dragCoroutine = default;

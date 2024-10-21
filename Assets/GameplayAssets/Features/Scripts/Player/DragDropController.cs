@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace EmptyTheGarage.Player.ItemsDraging
+namespace EmptyTheGarage.Feature.ItemsDraging
 {
     public class DragDropController : MonoBehaviour
     {
@@ -10,23 +10,10 @@ namespace EmptyTheGarage.Player.ItemsDraging
         [SerializeField]
         protected float rayLength = 500f;
 
-        protected InputSystem inputSystem = default;
         protected Ray ray = default;
         protected RaycastHit hit = default;
         protected IDragable draggableObject = default;
         protected bool isDraging = false;
-
-        protected virtual void Awake()
-        {
-            inputSystem = new InputSystem();
-            inputSystem.Enable();
-        }
-
-        protected virtual void OnEnable()
-        {
-            inputSystem.GameplayPC.LeftButtonPressed.performed += RaycastForward;
-            inputSystem.GameplayPC.LeftButtonPressed.canceled += RaycastForward;
-        }
 
         protected virtual void Update()
         {
@@ -49,13 +36,7 @@ namespace EmptyTheGarage.Player.ItemsDraging
             
         }
 
-        protected virtual void OnDisable()
-        {
-            inputSystem.GameplayPC.LeftButtonPressed.performed -= RaycastForward;
-            inputSystem.GameplayPC.LeftButtonPressed.canceled -= RaycastForward;
-        }
-
-        protected virtual void RaycastForward(InputAction.CallbackContext context)
+        public virtual void RaycastForward(InputAction.CallbackContext context)
         {
             if (context.performed)
             { 

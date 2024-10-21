@@ -1,8 +1,6 @@
 using UnityEngine;
 
-
-
-namespace EmptyTheGarage.Player.Movement
+namespace EmptyTheGarage.Feature.Movement
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMoveController : MonoBehaviour
@@ -12,7 +10,6 @@ namespace EmptyTheGarage.Player.Movement
         [SerializeField]
         protected Transform cameraTransform = default;
 
-        protected InputSystem inputSystem = default;
         protected Rigidbody rigidbody = default;
         protected Vector3 direction = Vector3.zero;
         protected float verticalCameraVector = 0f;
@@ -22,14 +19,11 @@ namespace EmptyTheGarage.Player.Movement
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-
-            //inputSystem = new InputSystem();
-            //inputSystem.Enable();
         }
 
         protected virtual void Start() => rigidbody = GetComponent<Rigidbody>();
 
-        protected virtual void LateUpdate() => transform.eulerAngles = new Vector3( transform.eulerAngles.x, cameraTransform.transform.eulerAngles.y, 0f);
+        protected virtual void LateUpdate() => transform.eulerAngles = new Vector3(transform.eulerAngles.x, cameraTransform.transform.eulerAngles.y, 0f);
 
         public virtual void Move(Vector2 input)
         {
